@@ -1,11 +1,24 @@
+// need a database wrapper
+const database = require('../../data/db-config')
 const getAll = () => {
-  // DO YOUR MAGIC
+  return database('cars')
 }
 
-const getById = () => {
-  // DO YOUR MAGIC
+const getById = (id) => {
+  return database('cars').where('id', id).first()
 }
 
-const create = () => {
-  // DO YOUR MAGIC
+const getByVin = (vin) => {
+  return database('cars').where('vin', vin).first()
+}
+
+const create = (car) => {
+  return database('cars').insert(car).then(([id]) => getById(id))
+}
+
+module.exports = {
+  getAll,
+  getById,
+  getByVin,
+  create,
 }
